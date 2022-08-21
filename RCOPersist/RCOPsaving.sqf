@@ -308,23 +308,27 @@ profileNamespace setVariable ["rimmy_camp_var_slotMarkers", recSavedSlotMarkers]
 profileNamespace setVariable ["rimmy_camp_var_recMineListToDelete", mineListToDelete];
 
 _savedPlayerLoadout = getUnitLoadout player;
+if (isClass (configfile >> "CfgPatches" >> "acre_main")) then
+{
+	_savedPlayerLoadout = [_savedPlayerLoadout] call acre_api_fnc_filterUnitLoadout;
+};
 profileNamespace setVariable ["rimmy_camp_var_playerLoadout", _savedPlayerLoadout]; 
 
 if(!(isnil "ace_medical_fnc_serializeState")) then
 {
-_recSavedProfileMedicalJSON = [{_this call ace_medical_fnc_serializeState}, player] call CBA_fnc_directCall;
-profileNamespace setVariable ["rimmy_camp_var_playerMedical", _recSavedProfileMedicalJSON]; 
+	_recSavedProfileMedicalJSON = [{_this call ace_medical_fnc_serializeState}, player] call CBA_fnc_directCall;
+	profileNamespace setVariable ["rimmy_camp_var_playerMedical", _recSavedProfileMedicalJSON]; 
 };
 
 _hungerNilTesterPlayer = player getvariable "acex_field_rations_hunger";
 if(!(isnil "_hungerNilTesterPlayer")) then {
-// Get current thirst and hunger
-private _recPlayerRationPass = [];
-_recPlayerVarThirst = player getVariable ["acex_field_rations_thirst", 0];
-_recPlayerVarHunger = player getVariable ["acex_field_rations_hunger", 0];
-_recPlayerRationPass pushBack _recPlayerVarThirst;
-_recPlayerRationPass pushBack _recPlayerVarHunger;	
-profileNamespace setVariable ["rimmy_camp_var_playerHunger", _recPlayerRationPass]; 
+	// Get current thirst and hunger
+	private _recPlayerRationPass = [];
+	_recPlayerVarThirst = player getVariable ["acex_field_rations_thirst", 0];
+	_recPlayerVarHunger = player getVariable ["acex_field_rations_hunger", 0];
+	_recPlayerRationPass pushBack _recPlayerVarThirst;
+	_recPlayerRationPass pushBack _recPlayerVarHunger;	
+	profileNamespace setVariable ["rimmy_camp_var_playerHunger", _recPlayerRationPass]; 
 };
 
 hint "FOBs, Mines, Vehicles, Player Loadouts and Group Locations saved successfully.";
