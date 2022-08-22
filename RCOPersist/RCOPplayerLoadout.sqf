@@ -1,5 +1,5 @@
 params ["_playerLoadoutChoice","_medicalLoadChoice","_hungerLoadChoice","_markerLoadChoice","_rimmySlotLoadout","_rimmySlotMedical","_rimmySlotHunger","_rimmySlotMarkers"];
-
+//Profile-Based Loading (Old)
 if (_playerLoadoutChoice == 1) then {
 	_loadout = [];
 	_loadout = profileNamespace getVariable "rimmy_camp_var_playerLoadout";
@@ -26,7 +26,7 @@ if (_playerLoadoutChoice == 1) then {
 		player linkItem _radioFixed;
 	};
 };
-
+//Slot-Based Loading
 if (_playerLoadoutChoice == 2) then {
 	_loadout = [];
 	if ((vehicleVarName player) in _rimmySlotLoadout) then {
