@@ -308,6 +308,7 @@ profileNamespace setVariable ["rimmy_camp_var_slotMarkers", recSavedSlotMarkers]
 profileNamespace setVariable ["rimmy_camp_var_recMineListToDelete", mineListToDelete];
 
 _savedPlayerLoadout = getUnitLoadout player;
+//if ACRE is loaded replace unique radios with generic ACRE classes to prevent duplication
 if (isClass (configfile >> "CfgPatches" >> "acre_main")) then
 {
 	_savedPlayerLoadout = [_savedPlayerLoadout] call acre_api_fnc_filterUnitLoadout;
